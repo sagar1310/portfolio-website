@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { 
   EnvelopeIcon,
   UserIcon,
   PaperAirplaneIcon
 } from '@heroicons/react/24/outline'
+import emailjs from '@emailjs/browser'
 
 const socialLinks = [
   {
@@ -56,11 +57,53 @@ export default function Contact() {
     email: '',
     message: ''
   })
+  const [status, setStatus] = useState({
+    type: '',
+    message: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  useEffect(() => {
+    emailjs.init('V3BqMlB5yB9aeb3rs')
+  }, [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
+    setIsSubmitting(true)
+    setStatus({ type: '', message: '' })
+
+    try {
+      const templateParams = {
+        from_name: formData.name,
+        reply_to: formData.email,
+        message: formData.message,
+        to_name: 'Sagar'
+      }
+
+      const result = await emailjs.send(
+        'service_gftkv9y',
+        'template_xgp68nm',
+        templateParams
+      )
+
+      if (result.status === 200) {
+        setStatus({
+          type: 'success',
+          message: 'Thank you! Your message has been sent successfully.'
+        })
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        throw new Error('Failed to send email')
+      }
+    } catch (error) {
+      console.error('Email error:', error)
+      setStatus({
+        type: 'error',
+        message: 'Oops! Something went wrong. Please try again later.'
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -104,6 +147,20 @@ export default function Contact() {
             variants={containerVariants}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {status.message && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={`p-4 rounded-xl ${
+                    status.type === 'success' 
+                      ? 'bg-green-100 text-green-700 border border-green-200'
+                      : 'bg-red-100 text-red-700 border border-red-200'
+                  }`}
+                >
+                  {status.message}
+                </motion.div>
+              )}
+
               <motion.div variants={itemVariants}>
                 <label htmlFor="name" className="block text-sm font-medium text-text-primary mb-2">
                   Name
@@ -121,6 +178,7 @@ export default function Contact() {
                     className="block w-full pl-10 pr-3 py-3 border border-accent-purple/20 rounded-xl bg-background focus:ring-2 focus:ring-accent-purple focus:border-transparent outline-none transition-all"
                     placeholder="Your name"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
               </motion.div>
@@ -142,6 +200,7 @@ export default function Contact() {
                     className="block w-full pl-10 pr-3 py-3 border border-accent-purple/20 rounded-xl bg-background focus:ring-2 focus:ring-accent-purple focus:border-transparent outline-none transition-all"
                     placeholder="your.email@example.com"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
               </motion.div>
@@ -159,16 +218,27 @@ export default function Contact() {
                   className="block w-full px-3 py-3 border border-accent-purple/20 rounded-xl bg-background focus:ring-2 focus:ring-accent-purple focus:border-transparent outline-none transition-all"
                   placeholder="Your message..."
                   required
+                  disabled={isSubmitting}
                 />
               </motion.div>
 
               <motion.div variants={itemVariants}>
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center px-8 py-3 bg-accent-teal text-white rounded-xl font-medium shadow-soft hover:shadow-hover transition-all"
+                  className="w-full flex items-center justify-center px-8 py-3 bg-accent-primary text-white rounded-xl font-medium shadow-soft hover:bg-accent-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  disabled={isSubmitting}
                 >
-                  <PaperAirplaneIcon className="w-5 h-5 mr-2" />
-                  Send Message
+                  {isSubmitting ? (
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  ) : (
+                    <>
+                      <PaperAirplaneIcon className="w-5 h-5 mr-2" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </motion.div>
             </form>
