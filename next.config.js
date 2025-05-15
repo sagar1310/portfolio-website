@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  output: 'export',  // Enable static exports
+  basePath: '/portfolio-website', // Replace with your repository name
   images: {
-    domains: ['localhost'],
-    formats: ['image/avif', 'image/webp'],
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
 }
 
