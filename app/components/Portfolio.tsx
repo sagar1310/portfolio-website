@@ -217,13 +217,13 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: Project, isOpen: 
         >
           <button 
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 rounded-full hover:bg-background-alt transition-colors z-10"
+            className="absolute top-3 right-3 p-2 rounded-full bg-accent-primary hover:bg-accent-primary/90 transition-colors shadow-md flex items-center justify-center"
             aria-label="Close modal"
           >
-            <XMarkIcon className="w-6 h-6 text-text-primary" />
+            <XMarkIcon className="w-5 h-5 text-white" />
           </button>
 
-          <div className="space-y-6">
+          <div className="space-y-6 pt-8">
             <div className="relative h-[400px] rounded-xl overflow-hidden">
               <Image
                 src={project.details.modalImage || project.image}

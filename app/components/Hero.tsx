@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -28,6 +27,14 @@ const itemVariants = {
 }
 
 export default function Hero() {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const element = document.getElementById(href.substring(1))
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
     <motion.section
       className="min-h-screen flex flex-col items-center justify-center bg-gradient-radial from-background via-background to-background/50 px-4 sm:px-6 lg:px-8 overflow-hidden"
@@ -67,7 +74,7 @@ export default function Hero() {
             variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-8"
           >
-            <Link href="/portfolio">
+            <a href="#portfolio" onClick={(e) => scrollToSection(e, '#portfolio')}>
               <motion.button
                 className="w-full sm:w-auto px-8 py-4 bg-accent-primary text-white rounded-2xl font-medium text-lg hover:bg-accent-primary/90 transition-colors"
                 whileHover={{ scale: 1.02 }}
@@ -75,9 +82,19 @@ export default function Hero() {
               >
                 View Portfolio
               </motion.button>
-            </Link>
+            </a>
             
-            <Link href="/contact">
+            <a href="/Sagar_Pise_Resume.pdf" target="_blank" rel="noopener noreferrer">
+              <motion.button
+                className="w-full sm:w-auto px-8 py-4 bg-accent-secondary text-white rounded-2xl font-medium text-lg hover:bg-accent-secondary/90 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                View Resume
+              </motion.button>
+            </a>
+            
+            <a href="#contact" onClick={(e) => scrollToSection(e, '#contact')}>
               <motion.button
                 className="w-full sm:w-auto px-8 py-4 border border-text-secondary/20 text-text-primary rounded-2xl font-medium text-lg hover:bg-text-primary/5 transition-colors"
                 whileHover={{ scale: 1.02 }}
@@ -85,7 +102,7 @@ export default function Hero() {
               >
                 Get in Touch
               </motion.button>
-            </Link>
+            </a>
           </motion.div>
 
           {/* Scroll Indicator */}

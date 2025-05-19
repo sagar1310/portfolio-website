@@ -2,38 +2,54 @@
 
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Experience', href: '/experience' },
-  { name: 'Skills', href: '/skills' },
-  { name: 'Certifications', href: '/certifications' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Home', href: '#home' },
+  { name: 'About', href: '#about' },
+  { name: 'Portfolio', href: '#portfolio' },
+  { name: 'Education & Experience', href: '#timeline' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Certifications', href: '#certifications' },
+  { name: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
-  const pathname = usePathname()
-  const [activeSection, setActiveSection] = useState(pathname)
+  const [activeSection, setActiveSection] = useState('')
   const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    setActiveSection(pathname)
-  }, [pathname])
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
+
+      // Get all sections
+      const sections = navigation.map(item => item.href.substring(1))
+      
+      // Find the current section
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const rect = element.getBoundingClientRect()
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(`#${section}`)
+            break
+          }
+        }
+      }
     }
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault()
+    const element = document.getElementById(href.substring(1))
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <Disclosure as="nav" className={`fixed w-full z-50 transition-all duration-500 ${
@@ -44,7 +60,7 @@ export default function Navbar() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex items-center">
-                <Link href="/" className="flex items-center">
+                <a href="#home" onClick={(e) => scrollToSection(e, '#home')} className="flex items-center">
                   <motion.div 
                     className="text-xl font-semibold text-accent-primary"
                     whileHover={{ scale: 1.02 }}
@@ -52,7 +68,7 @@ export default function Navbar() {
                   >
                     SP
                   </motion.div>
-                </Link>
+                </a>
               </div>
               
               {/* Desktop menu */}
@@ -65,8 +81,9 @@ export default function Navbar() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Link
+                      <a
                         href={item.href}
+                        onClick={(e) => scrollToSection(e, item.href)}
                         className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                           activeSection === item.href
                             ? 'bg-accent-primary text-white'
@@ -74,7 +91,7 @@ export default function Navbar() {
                         }`}
                       >
                         {item.name}
-                      </Link>
+                      </a>
                     </motion.div>
                   ))}
                 </div>
@@ -99,8 +116,9 @@ export default function Navbar() {
               {navigation.map((item) => (
                 <Disclosure.Button
                   key={item.name}
-                  as={Link}
+                  as="a"
                   href={item.href}
+                  onClick={(e) => scrollToSection(e, item.href)}
                   className={`block px-4 py-2 rounded-lg text-base font-medium transition-all duration-200 ${
                     activeSection === item.href
                       ? 'bg-accent-primary text-white'

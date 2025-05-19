@@ -3,7 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { 
-  CommandLineIcon,
+  CommandLineIcon, 
   CpuChipIcon,
   CloudIcon,
   ChartBarIcon,
@@ -25,7 +25,6 @@ import {
 interface SkillItem {
   name: string;
   icon: React.ElementType;
-  level: 'Expert' | 'Advanced' | 'Intermediate';
 }
 
 interface SkillCategory {
@@ -41,10 +40,10 @@ const skills: SkillCategory[] = [
     description: 'Tools I use for product strategy and execution',
     icon: PresentationChartLineIcon,
     items: [
-      { name: 'Aha!', icon: PresentationChartLineIcon, level: 'Expert' },
-      { name: 'Jira', icon: CogIcon, level: 'Expert' },
-      { name: 'Miro', icon: PencilSquareIcon, level: 'Expert' },
-      { name: 'Confluence', icon: WindowIcon, level: 'Expert' }
+      { name: 'Aha!', icon: PresentationChartLineIcon },
+      { name: 'Jira', icon: CogIcon },
+      { name: 'Miro', icon: PencilSquareIcon },
+      { name: 'Confluence', icon: WindowIcon }
     ]
   },
   {
@@ -52,9 +51,9 @@ const skills: SkillCategory[] = [
     description: 'Languages I code with',
     icon: CodeBracketIcon,
     items: [
-      { name: 'Java', icon: CodeBracketIcon, level: 'Intermediate' },
-      { name: 'PEGA PRPC', icon: CircleStackIcon, level: 'Advanced' },
-      { name: 'C', icon: CpuChipIcon, level: 'Intermediate' }
+      { name: 'Java', icon: CodeBracketIcon },
+      { name: 'PEGA PRPC', icon: CircleStackIcon },
+      { name: 'C', icon: CpuChipIcon }
     ]
   },
   {
@@ -62,9 +61,9 @@ const skills: SkillCategory[] = [
     description: 'Approaches I follow for project success',
     icon: PuzzlePieceIcon,
     items: [
-      { name: 'Agile', icon: ClockIcon, level: 'Expert' },
-      { name: 'SCRUM', icon: UserGroupIcon, level: 'Expert' },
-      { name: 'SAFe', icon: PuzzlePieceIcon, level: 'Advanced' }
+      { name: 'Agile', icon: ClockIcon },
+      { name: 'SCRUM', icon: UserGroupIcon },
+      { name: 'SAFe', icon: PuzzlePieceIcon }
     ]
   },
   {
@@ -72,20 +71,15 @@ const skills: SkillCategory[] = [
     description: 'Technologies I work with',
     icon: CloudIcon,
     items: [
-      { name: 'IoT', icon: CloudIcon, level: 'Expert' },
-      { name: 'SaaS', icon: ServerIcon, level: 'Expert' },
-      { name: 'Cloud Infrastructure', icon: CloudIcon, level: 'Advanced' }
+      { name: 'IoT', icon: CloudIcon },
+      { name: 'SaaS', icon: ServerIcon },
+      { name: 'Cloud Infrastructure', icon: CloudIcon }
     ]
   }
 ]
 
 const SkillCard = ({ skill, index }: { skill: SkillItem; index: number }) => {
   const Icon = skill.icon
-  const levelColors = {
-    Expert: 'from-accent-teal to-accent-primary',
-    Advanced: 'from-accent-purple to-accent-primary',
-    Intermediate: 'from-accent-peach to-accent-primary'
-  }
 
   return (
     <motion.div
@@ -96,20 +90,16 @@ const SkillCard = ({ skill, index }: { skill: SkillItem; index: number }) => {
       whileHover={{ y: -5, transition: { duration: 0.2 } }}
       className="group relative"
     >
-      <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${levelColors[skill.level]} opacity-5 group-hover:opacity-10 transition-opacity duration-300`} />
-      <div className="relative p-6 rounded-2xl bg-background-alt/50 backdrop-blur-sm border border-accent-primary/10 
-        group-hover:border-accent-primary/30 transition-all duration-300 h-full">
-        <div className="flex items-center gap-4 mb-3">
-          <div className={`p-3 rounded-xl bg-gradient-to-br ${levelColors[skill.level]} bg-opacity-10`}>
-            <Icon className="w-6 h-6 text-accent-primary" />
+      <div className="relative p-4 rounded-xl bg-background-alt/50 backdrop-blur-sm border border-accent-primary/10 
+        group-hover:border-accent-primary/30 transition-all duration-300">
+        <div className="flex items-center gap-3">
+          <div className="p-2 rounded-lg bg-accent-primary/10">
+            <Icon className="w-5 h-5 text-accent-primary" />
           </div>
-          <span className={`text-sm font-medium px-3 py-1 rounded-full bg-gradient-to-br ${levelColors[skill.level]} bg-opacity-10`}>
-            {skill.level}
-          </span>
+          <h3 className="text-base font-medium text-text-primary group-hover:text-accent-primary transition-colors duration-300">
+            {skill.name}
+          </h3>
         </div>
-        <h3 className="text-lg font-semibold text-text-primary group-hover:text-accent-primary transition-colors duration-300">
-          {skill.name}
-        </h3>
       </div>
     </motion.div>
   )
@@ -141,7 +131,7 @@ const CategorySection = ({ category }: { category: SkillCategory }) => {
         </div>
       </motion.div>
 
-      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
         {category.items.map((skill, index) => (
           <SkillCard key={skill.name} skill={skill} index={index} />
         ))}
