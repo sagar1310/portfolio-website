@@ -89,21 +89,26 @@ const itemVariants = {
 
 export default function Timeline() {
   return (
-    <section id="timeline" className="py-20 bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="timeline" className="py-24 bg-background-alt relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent-primary/5 rounded-full blur-[100px] transform translate-x-1/4 -translate-y-1/4" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent-purple/5 rounded-full blur-[100px] transform -translate-x-1/4 translate-y-1/4" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <motion.h2 
-            className="text-3xl sm:text-4xl font-bold text-text-primary mb-4"
-            variants={itemVariants}
-          >
+          <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent pb-4">
             Education & Experience
-          </motion.h2>
+          </h1>
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto mt-6">
+            My academic and professional journey
+          </p>
         </motion.div>
 
         <div className="relative">
@@ -132,14 +137,19 @@ export default function Timeline() {
               >
                 {/* Timeline node */}
                 <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className={`w-8 h-8 rounded-full border-2 ${
-                    item.type === 'education' 
-                      ? 'border-accent-tertiary bg-accent-tertiary/10' 
-                      : 'border-accent-primary bg-accent-primary/10'
-                  } flex items-center justify-center`}>
-                    <item.icon className={`w-4 h-4 ${
-                      item.type === 'education' ? 'text-accent-tertiary' : 'text-accent-primary'
-                    }`} />
+                  <div className="relative">
+                    {/* Background circle to hide the line */}
+                    <div className="absolute inset-0 w-8 h-8 rounded-full bg-background-alt" />
+                    {/* Icon circle */}
+                    <div className={`relative w-8 h-8 rounded-full border-2 ${
+                      item.type === 'education' 
+                        ? 'border-accent-tertiary bg-accent-tertiary/10' 
+                        : 'border-accent-primary bg-accent-primary/10'
+                    } flex items-center justify-center`}>
+                      <item.icon className={`w-4 h-4 ${
+                        item.type === 'education' ? 'text-accent-tertiary' : 'text-accent-primary'
+                      }`} />
+                    </div>
                   </div>
                 </div>
 

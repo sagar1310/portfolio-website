@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { AcademicCapIcon } from '@heroicons/react/24/outline'
+import { motion } from 'framer-motion'
 
 interface Certification {
   title: string;
@@ -44,43 +45,62 @@ const certifications: Certification[] = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 pb-4">
+    <section id="certifications" className="py-24 bg-background-alt relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-accent-primary/5 rounded-full blur-[100px] transform translate-x-1/4 -translate-y-1/4" />
+        <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-accent-purple/5 rounded-full blur-[100px] transform -translate-x-1/4 translate-y-1/4" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          className="text-center mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-r from-text-primary via-accent-primary to-text-primary bg-clip-text text-transparent pb-4">
             Certifications
           </h1>
-          <p className="text-xl text-gray-500 max-w-3xl mx-auto mt-2">
+          <p className="text-xl text-text-secondary max-w-3xl mx-auto mt-6">
             Professional certifications and achievements
           </p>
-        </div>
+        </motion.div>
+
         <div className="grid gap-8 md:grid-cols-2">
           {certifications.map((cert) => (
-            <div
+            <motion.div
               key={cert.title}
-              className="bg-gray-100 rounded-2xl shadow-md p-8 flex flex-col justify-between h-full"
+              className="bg-background-alt/50 backdrop-blur-sm rounded-2xl border border-accent-primary/10 p-8 flex flex-col justify-between h-full hover:border-accent-primary/30 transition-all duration-300"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              whileHover={{ y: -5 }}
             >
               <div className="flex items-start gap-3 mb-2">
-                <AcademicCapIcon className="w-6 h-6 text-gray-700 mt-1 flex-shrink-0" />
+                <div className="p-2 rounded-lg bg-accent-primary/10">
+                  <AcademicCapIcon className="w-6 h-6 text-accent-primary" />
+                </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-1">
+                  <h2 className="text-xl font-bold text-text-primary mb-1">
                     {cert.title}
                   </h2>
-                  <div className="font-semibold text-gray-800 mb-1">
+                  <div className="font-semibold text-text-primary mb-1">
                     {cert.organization}
                   </div>
-                  <div className="text-gray-500 text-sm mb-2">
+                  <div className="text-text-secondary text-sm mb-2">
                     {cert.date}
                   </div>
-                  <div className="text-gray-500 text-base mb-2">
+                  <div className="text-text-secondary text-base mb-2">
                     {cert.description}
                   </div>
-                  <div className="text-gray-400 text-sm">
+                  <div className="text-text-secondary/70 text-sm">
                     Credential ID: {cert.credentialId}
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

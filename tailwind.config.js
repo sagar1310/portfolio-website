@@ -16,6 +16,7 @@ module.exports = {
         'accent-secondary': 'var(--accent-secondary)',
         'accent-tertiary': 'var(--accent-tertiary)',
         border: 'var(--border)',
+        'carrier-blue': '#0056B3',
       },
       boxShadow: {
         'soft': '0 2px 15px rgba(0, 0, 0, 0.1)',

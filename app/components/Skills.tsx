@@ -40,7 +40,7 @@ const skills: SkillCategory[] = [
     description: 'Tools I use for product strategy and execution',
     icon: PresentationChartLineIcon,
     items: [
-      { name: 'Aha!', icon: PresentationChartLineIcon },
+      { name: 'Aha! Roadmaps', icon: PresentationChartLineIcon },
       { name: 'Jira', icon: CogIcon },
       { name: 'Miro', icon: PencilSquareIcon },
       { name: 'Confluence', icon: WindowIcon }
