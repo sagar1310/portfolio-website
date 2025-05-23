@@ -292,7 +292,7 @@ const ProjectModal = ({ project, isOpen, onClose }: { project: Project, isOpen: 
         >
           <button 
             onClick={onClose}
-            className="absolute top-3 right-3 p-2 rounded-full bg-accent-primary hover:bg-accent-primary/90 transition-colors shadow-md flex items-center justify-center"
+            className="fixed top-3 right-3 p-2 rounded-full bg-accent-primary hover:bg-accent-primary/90 transition-colors shadow-md flex items-center justify-center z-[60]"
             aria-label="Close modal"
           >
             <XMarkIcon className="w-5 h-5 text-white" />

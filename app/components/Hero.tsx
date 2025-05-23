@@ -104,45 +104,6 @@ export default function Hero() {
               </motion.button>
             </a>
           </motion.div>
-
-          {/* Scroll Indicator */}
-          <motion.div
-            variants={itemVariants}
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
-            animate={{
-              y: [0, 10, 0],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-            onClick={() => {
-              const element = document.getElementById('about')
-              if (element) {
-                element.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="w-6 h-10 border-2 border-accent-primary/30 rounded-full flex items-start justify-center p-1.5 group">
-              <motion.div 
-                className="w-1.5 h-3 bg-accent-primary rounded-full"
-                animate={{
-                  y: [0, 12, 0],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              <span className="absolute -bottom-6 text-sm text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                Scroll Down
-              </span>
-            </div>
-          </motion.div>
         </div>
       </div>
     </motion.section>

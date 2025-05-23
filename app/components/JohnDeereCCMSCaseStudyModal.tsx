@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from 'react'
 import Script from 'next/script'
 import Image from 'next/image'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 const sections = [
   { id: 'overview', label: 'Overview' },
@@ -172,6 +173,15 @@ export default function JohnDeereCCMSCaseStudyModal({ onClose }: { onClose?: () 
 
   return (
     <div className="bg-gray-50 text-gray-800 font-sans scroll-smooth max-h-[80vh] overflow-y-auto px-2">
+      {/* Close Button - Positioned above nav bar */}
+      <button 
+        onClick={onClose}
+        className="fixed top-3 right-3 p-2 rounded-full bg-accent-primary hover:bg-accent-primary/90 transition-colors shadow-md flex items-center justify-center z-[60]"
+        aria-label="Close modal"
+      >
+        <XMarkIcon className="w-5 h-5 text-white" />
+      </button>
+
       {/* Sticky Nav Bar (centered, max width, no overlap) */}
       <div ref={navRef} className="sticky top-0 z-50 bg-white shadow-md border-b">
         <div className="max-w-screen-md mx-auto px-4 pr-8">
