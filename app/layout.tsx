@@ -17,6 +17,13 @@ export const metadata: Metadata = {
   keywords: ['Product Manager', 'Digital Transformation', 'IoT', 'Portfolio', 'Product Development'],
   authors: [{ name: 'Sagar Pise' }],
   creator: 'Sagar Pise',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' }
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
