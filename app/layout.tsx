@@ -45,6 +45,20 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable}`} data-theme="light">
+      <head>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VNXF1JRY2H"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-VNXF1JRY2H');
+            `,
+          }}
+        />
+      </head>
       <body className="bg-background text-text-primary antialiased light">
         {children}
       </body>
