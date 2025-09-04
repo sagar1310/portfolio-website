@@ -22,7 +22,7 @@ interface Experience {
 
 const experiences: Experience[] = [
   {
-    title: 'Digital Product Manager Co-Op',
+    title: 'Digital Product Manager',
     company: 'Carrier Corporation',
     location: 'Beverly, MA',
     period: 'June 2024 – December 2024',
@@ -50,7 +50,7 @@ const experiences: Experience[] = [
     companyLogo: '/images/companies/john-deere.avif'
   },
   {
-    title: 'Associate Consultant',
+    title: 'Product Analyst',
     company: 'Atos',
     location: 'Pune, India',
     period: 'Oct 2019 – April 2022',

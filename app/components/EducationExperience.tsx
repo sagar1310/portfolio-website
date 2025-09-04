@@ -30,7 +30,7 @@ interface TimelineItem {
 const timelineItems: TimelineItem[] = [
   {
     type: 'experience',
-    title: 'Digital Product Manager Co-Op',
+    title: 'Digital Product Manager',
     organization: 'Carrier Corporation',
     location: 'Beverly, MA',
     period: 'June 2024 – December 2024',
@@ -106,7 +106,7 @@ const timelineItems: TimelineItem[] = [
   },
   {
     type: 'experience',
-    title: 'Associate Consultant',
+    title: 'Product Analyst',
     organization: 'Atos',
     location: 'Pune, India',
     period: 'Oct 2019 – April 2022',
