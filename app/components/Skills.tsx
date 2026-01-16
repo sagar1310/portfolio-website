@@ -75,6 +75,14 @@ const skills: SkillCategory[] = [
       { name: 'SaaS', icon: ServerIcon },
       { name: 'Cloud Infrastructure', icon: CloudIcon }
     ]
+  },
+  {
+    category: 'AI & Machine Learning',
+    description: 'Expertise in artificial intelligence and machine learning product development',
+    icon: SparklesIcon,
+    items: [
+      { name: 'AI Product Management', icon: SparklesIcon }
+    ]
   }
 ]
 
